@@ -1,8 +1,12 @@
+*** Settings ***
+Library  SeleniumLibrary
+
 *** Variables ***
-${FIRSTCAR}     //a[contains(@href,'/cars/') and starts-with(@class,'jss')]
+${firstcar}     //a[contains(@href,'/cars/') and starts-with(@class,'jss')]
 
 *** Keywords ***
 Click on first element
-    Wait Until Page Contains Element   ${FIRSTCAR}
-    Click Element   ${FIRSTCAR}
-    ${handle}=  Switch Window   NEW     # Select latest opened window
+    Wait Until Page Contains Element   ${firstcar}
+    ${carId}=    Get Element Attribute  ${firstcar}     href
+    Click Element   ${firstcar}
+    Switch Window   url=${carId}
